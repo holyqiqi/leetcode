@@ -11,24 +11,18 @@ public class Solution {
     public int[] twoSum(int[] nums, int target) {
         Hashtable<Integer, Integer> hashNums = new Hashtable<>();
         int i = 0;
-        int[] result = new int[2];
+        int[] result = {0,0};
         for (int num : nums) {
-            hashNums.put(num, i++);
             int sub = target - nums[i];
             if (hashNums.get(sub) != null && hashNums.get(sub) != i) {
                 result[1] = i;
                 result[0] = hashNums.get(sub);
-            } else {break;}
-        }
-/*        for (i = 0; i < nums.length; i++) {
-            int sub = target - nums[i];
-            if (hashNums.get(sub) != null) {
-                result[1] = i;
-                result[0] = hashNums.get(sub);
+                return result;
             } else {
+                hashNums.put(num, i++);
+                continue;
             }
-            hashNums.get(i);
-        }*/
+        }
         return result;
     }
 }
