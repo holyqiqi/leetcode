@@ -1,17 +1,17 @@
-package T3;
+package t3;
 
 import org.junit.Test;
 import org.junit.Before;
 import org.junit.After;
 
-import static T3.Solution.lengthOfLongestSubstring;
+import static t3.Solution.lengthOfLongestSubstring;
 
 /**
  * Solution Tester.
  *
  * @author <Authors name>
  * @version 1.0
- * @since <pre>十月 31, 2016</pre>
+ * @since <pre>六月 23, 2017</pre>
  */
 public class SolutionTest {
 
