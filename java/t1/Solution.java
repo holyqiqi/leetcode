@@ -1,10 +1,14 @@
-/**
- * 将数组中的数放入HashTable，键为索引，值为值
- */
-
-package T1;
+package t1;
 
 import java.util.Hashtable;
+/**
+ * 将数组中的数放入HashTable，键为索引，值为值
+ Given nums = [2, 7, 11, 15], target = 9,
+
+ Because nums[0] + nums[1] = 2 + 7 = 9,
+ return [0, 1].
+ */
+
 public class Solution {
     public int[] twoSum(int[] nums, int target) {
         Hashtable<Integer, Integer> hashNums = new Hashtable<>();
