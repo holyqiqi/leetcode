@@ -5,38 +5,35 @@ package t3;
   思路:
  */
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Solution {
     public static int lengthOfLongestSubstring(String s) {
-        Hashtable<Character, Integer> subTable = new Hashtable<>();
-        int finalMax = 0;
+        int max = 1;
+        Map<Character, Integer> subStrPos = new Hashtable<>(); //作用: 存储当前子串及位置.
         for (int i = 0; i < s.length(); i++) {
-            boolean existsFlag = subTable.get(s.charAt(i)) != null;
-            if (existsFlag) {
-                finalMax = finalMax > subTable.size() ? finalMax : subTable.size();
-                int oldPos = subTable.get(s.charAt(i));
-                Set<Character> keySet = subTable.keySet();
-                List<Character> willRemove = new ArrayList<>();
-                for (char key : keySet) {
-                    int curPos = subTable.get(key);
-                    if (curPos < oldPos) {
-                        willRemove.add(key);
-                    }
-                }
-                for (char key : willRemove) {
-                    subTable.remove(key);
-                }
-                willRemove.clear();
-                subTable.put(s.charAt(i), i);
-            } else {
-                subTable.put(s.charAt(i), i);
+            char curChar = s.charAt(i);
+            if (!subStrPos.containsKey(curChar)) {
+                subStrPos.put(curChar, i);
+            }else {
+                int minPos = subStrPos.get(curChar);
+                int curMax = subStrPos.size();
+                max = max > curMax ? max : curMax;
+                subStrPos = delMinMap(subStrPos, minPos);
             }
-            finalMax = finalMax > subTable.size() ? finalMax : subTable.size();
         }
-        return finalMax;
+        return 1;
+    }
+    private static Map<Character, Integer> delMinMap(Map<Character, Integer> subMap, int min){
+        Set<Character> set = subMap.keySet();
+        for (Character key : set) {
+            int value = subMap.get(key);
+            if (value <= min){
+                subMap.remove(key);
+            }
+        }
+        return subMap;
     }
 }
