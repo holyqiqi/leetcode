@@ -8,7 +8,8 @@ public class Solution {
     public String longestPalindrome(String s) {
         int strLen = s.length();
         int maxLen = 0, maxStart = 0, maxEnd = 1;
-        for (int i = 0; i < strLen ; i++) {
+        int maxFlag = 0;
+        for (int i = strLen - 1; i > 0 ; i--) {
             for (int j = 0; j < i; j++) {
                 String curStr = s.substring(j, i+1);
                 int curLength = i - j + 1;
@@ -18,15 +19,36 @@ public class Solution {
                         maxStart = j;
                         maxEnd = i + 1;
                         maxLen = curLen;
+                        maxFlag += 1;
                     }
                 }
+                // if (isABA(curStr, curLength ) ){
+                //     int curLen = i -j + 1;
+                //     if (maxLen < curLen){
+                //         maxStart = j;
+                //         maxEnd = i + 1;
+                //         maxLen = curLen;
+                //         maxFlag = true;
+                //     }
+                // }
             }
+            if (maxFlag == 2)
+                break;
         }
         return s.substring(maxStart, maxEnd);
     }
     // abba curLen=4, i=0,1  2,3
     // abcba curLen=4, i=0,1,2
     private boolean isAA(String s, int curLen){
+        if (curLen == 1)
+            return true;
+        for (int i = 0; i < curLen / 2; i++) {
+            if (s.charAt(i) != s.charAt(curLen - i - 1))
+                return false;
+        }
+        return true;
+    }
+    private boolean isABA(String s, int curLen){
         if (curLen == 1)
             return true;
         for (int i = 0; i < curLen / 2; i++) {
