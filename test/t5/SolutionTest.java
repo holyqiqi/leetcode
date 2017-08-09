@@ -25,7 +25,7 @@ public class SolutionTest {
      * Method: longestPalindrome(String s)
      */
     @Test
-    public void testLongestPalindrome() throws Exception {
+    public void testlongestPalindrome() throws Exception {
         String[] input = {
                 "eeabcbaadd",
                 "abcdcba",

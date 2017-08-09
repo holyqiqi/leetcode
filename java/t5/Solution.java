@@ -3,58 +3,35 @@ package t5;
 /**
  * Created by zhumengqi on 17-7-2.
  * 第5题: 最大回文长度
+ * 思路： 游标从0～longth-1, 从中心向两边遍历(区分odd, even)，变量接收最大回文串。
  */
 public class Solution {
+    StringBuilder longest = new StringBuilder("");
+
     public String longestPalindrome(String s) {
-        int strLen = s.length();
-        int maxLen = 0, maxStart = 0, maxEnd = 1;
-        int maxFlag = 0;
-        for (int i = strLen - 1; i > 0 ; i--) {
-            for (int j = 0; j < i; j++) {
-                String curStr = s.substring(j, i+1);
-                int curLength = i - j + 1;
-                if (isAA(curStr, curLength ) ){
-                    int curLen = i -j + 1;
-                    if (maxLen < curLen){
-                        maxStart = j;
-                        maxEnd = i + 1;
-                        maxLen = curLen;
-                        maxFlag += 1;
-                    }
+        if (s.length() <= 2 ) return s;
+
+        // TODO: odd, even
+        for (int i = 0; i < s.length(); i++) {
+            expand(s, longest, i, i); // odd
+            expand(s, longest, i, i + 1); // odd
+        }
+
+        return longest.toString();
+    }
+    private void expand(String s, StringBuilder longest, int i, int j){
+        // 以i 或i,j为中心，遍历左右，求最大回文串！
+        while (i >= 0 && j < s.length()) {
+            if (s.charAt(i) == s.charAt(j)) {
+                if (j - i + 1 > longest.length()) {
+                    longest.delete(0, longest.length());
+                    longest.append(s.substring(i, j + 1));
                 }
-                // if (isABA(curStr, curLength ) ){
-                //     int curLen = i -j + 1;
-                //     if (maxLen < curLen){
-                //         maxStart = j;
-                //         maxEnd = i + 1;
-                //         maxLen = curLen;
-                //         maxFlag = true;
-                //     }
-                // }
+                i--;
+                j++;
             }
-            if (maxFlag == 2)
+            else
                 break;
         }
-        return s.substring(maxStart, maxEnd);
-    }
-    // abba curLen=4, i=0,1  2,3
-    // abcba curLen=4, i=0,1,2
-    private boolean isAA(String s, int curLen){
-        if (curLen == 1)
-            return true;
-        for (int i = 0; i < curLen / 2; i++) {
-            if (s.charAt(i) != s.charAt(curLen - i - 1))
-                return false;
-        }
-        return true;
-    }
-    private boolean isABA(String s, int curLen){
-        if (curLen == 1)
-            return true;
-        for (int i = 0; i < curLen / 2; i++) {
-            if (s.charAt(i) != s.charAt(curLen - i - 1))
-                return false;
-        }
-        return true;
     }
 }
