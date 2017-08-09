@@ -6,21 +6,20 @@ package t5;
  * 思路： 游标从0～longth-1, 从中心向两边遍历(区分odd, even)，变量接收最大回文串。
  */
 public class Solution {
+    // StringBuilder便于拼接。返回结果时再转String
     StringBuilder longest = new StringBuilder("");
 
     public String longestPalindrome(String s) {
-        if (s.length() <= 2 ) return s;
+        if (s.length() < 3) return s;
 
-        // TODO: odd, even
+        // 依次遍历s，所到之处，为中心，向两边对称位置游走。
         for (int i = 0; i < s.length(); i++) {
-            expand(s, longest, i, i); // odd
-            expand(s, longest, i, i + 1); // odd
+            expand(s, longest, i, i);
+            expand(s, longest, i, i + 1);
         }
-
         return longest.toString();
     }
-    private void expand(String s, StringBuilder longest, int i, int j){
-        // 以i 或i,j为中心，遍历左右，求最大回文串！
+    private void expand(String s, StringBuilder longest, int i, int j) {
         while (i >= 0 && j < s.length()) {
             if (s.charAt(i) == s.charAt(j)) {
                 if (j - i + 1 > longest.length()) {
