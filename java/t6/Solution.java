@@ -23,7 +23,8 @@ public class Solution {
                     result.append(temp.charAt(curLine));
                 else
                     break;
-                if (temp.length() > loopNum - curLine && !(curLine == 0 || curLine == loopNum / 2)) {
+                // 当不是第0行和第最后一行， 并且
+                if (!(curLine == 0 || curLine == numRows && temp.length() > loopNum - curLine)) {
                     result.append(temp.charAt(loopNum- curLine));
                 }
                 temp.delete(0, loopNum);
